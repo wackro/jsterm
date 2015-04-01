@@ -7,6 +7,13 @@ var terminal, terminalBottom, terminalTop, terminalPrompt, terminalCaret;
 var loggedIn = false;
 var prompt = { plain: "user@jgriff.in:~$ ", html: "user@jgriff.in:~$&nbsp;"}
 
+var github_repo = "http://github.com/wackro/homepage-2015";
+var contact = { 
+	facebook: { name: "facebook", link: "http://facebook.com/griffdogg"},
+	mail: { name: "mail", link: "mailto:wackro@gmail.com" },
+	linkedin: { name: "linkedin", link: "https://uk.linkedin.com/pub/joe-griffin/1b/9b2/25a" }
+};
+
 $(document).ready( function() {
 	init();
 });
@@ -50,7 +57,7 @@ function initText_2() {
 function initText_3() {
 	addText("Welcome to jgriff.in", true);
 	addText("", true);
-	addText(" * Documentation: (link to github here)", true);
+	addText(" * Documentation: " + github_repo + ", true);
 	if($.cookie("lastLogin") == undefined) {
 		var date = new Date();
 		$.cookie("lastLogin", date.toString());
@@ -73,9 +80,9 @@ function type(command, speed, hitEnter) {
 		currentChar = 0;
 		clearInterval(timer);
 		if(hitEnter)
-				var e = jQuery.Event("keydown");
-				e.keyCode = 13;
-				terminalBottom.trigger(e);
+			var e = jQuery.Event("keydown");
+			e.keyCode = 13;
+			terminalBottom.trigger(e);
 		return;
 	}
 	terminalBottom.text(terminalBottom.text() + command[currentChar]);
@@ -250,13 +257,13 @@ function contact(args) {
 	if(args.length == 3 && args[1] == "-m") {
 		switch(args[2].toLowerCase()) {
 			case "linkedin":
-				window.open("https://uk.linkedin.com/pub/joe-griffin/1b/9b2/25a", "_blank");
+				window.open(contact.linkedin.link, "_blank");
 				return;
 			case "mail":
-				window.location.href = "mailto:wackro@gmail.com";
+				window.location.href = contact.mail.link;
 				return;
 			case "facebook":
-				window.open("http://facebook.com/griffdogg", "_blank")
+				window.open(contact.facebook.link, "_blank")
 				return;
 			default:
 				addText("contact [-m &lt;linkedin|email|facebook&gt;]", true);
@@ -264,8 +271,8 @@ function contact(args) {
 				return;
 		}
 	}
-	addText("<a href='https://uk.linkedin.com/pub/joe-griffin/1b/9b2/25a'>Linkedin</a>", true);
-	addText("<a href='mailto:wackro@gmail.com'>Mail</a>", true);
-	addText("<a href='http://facebook.com/griffdogg'>Facebook</a>", true);
+	addText("<a href='" + contact.linkedin.link + "' target='_blank'>Linkedin</a>", true);
+	addText("<a href='" + contact.mail.link + "' target='_blank'>Mail</a>", true);
+	addText("<a href='" + contact.facebook.link + "' target='_blank'>Facebook</a>", true);
 	addText();
 }
