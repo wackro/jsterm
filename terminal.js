@@ -10,11 +10,6 @@ var terminal, terminalBottom, terminalTop, terminalPrompt, terminalCaret;
 var loggedIn = false;
 var prompt = { plain: "user@jgriff.in:~$ ", html: "user@jgriff.in:~$&nbsp;" }
 var github_repo = "http://github.com/wackro/homepage-2015";
-var contact = { 
-	facebook: { name: "facebook", link: "http://facebook.com/griffdogg" },
-	mail: { name: "mail", link: "mailto:wackro@gmail.com" },
-	linkedin: { name: "linkedin", link: "https://uk.linkedin.com/pub/joe-griffin/1b/9b2/25a" }
-};
 
 var commands = [
 	{
@@ -26,13 +21,13 @@ var commands = [
 	{
 		name: "contact",
 		action: contact,
-		usage: "contact [-m [linkedin|mail|facebook]]"
+		usage: "contact [-m [linkedin|mail|facebook]]",
 		help: "this is the help for contact"
 	},
 	{
 		name: "help",
 		action: help,
-		usage: "help [command]"
+		usage: "help [command]",
 		help: "there is no help for help..."
 	}
 ];
@@ -56,6 +51,19 @@ function init() {
 	initText_1();
 }
 
+function run(action, args) {
+	var i;
+	for(i=0;i<commands.length;i++) {
+		if(commands[i].name == action) {
+			var matchingFunction = window[action];
+			if(typeof matchingFunction === "function")
+				matchingFunction(args);
+				return;
+		}
+	}
+	commandNotFound(action);
+}
+
 function registerListeners() {
 	terminalBottom.keydown(function(e) {
 		if(e.keyCode == 13) {
@@ -65,6 +73,10 @@ function registerListeners() {
 	terminalBottom.focusout(function(e) {
 		terminalBottom.focus();
 	});
+}
+
+function pause(f, quanta) {
+	window.setTimeout(f, quanta*1000);
 }
 
 function initText_1() {
@@ -132,20 +144,25 @@ function interpret(text) {
 	var splitText = text.split(' ')
 	addText(terminalBottom.text());
 	terminalBottom.text("", true);
-	doAction(splitText[0]);
+	run(splitText[0]);
 }
 
-var contact = function contact(args) {
+var contact = function(args) {
+	var contactDetails = { 
+		facebook: { name: "facebook", link: "http://facebook.com/griffdogg" },
+		mail: { name: "mail", link: "mailto:wackro@gmail.com" },
+		linkedin: { name: "linkedin", link: "https://uk.linkedin.com/pub/joe-griffin/1b/9b2/25a" }
+	};
 	if(args.length == 3 && args[1] == "-m") {
 		switch(args[2].toLowerCase()) {
 			case "linkedin":
-				window.open(contact.linkedin.link, "_blank");
+				window.open(contactDetails.linkedin.link, "_blank");
 				return;
 			case "mail":
-				window.location.href = contact.mail.link;
+				window.location.href = contactDetails.mail.link;
 				return;
 			case "facebook":
-				window.open(contact.facebook.link, "_blank")
+				window.open(contactDetails.facebook.link, "_blank")
 				return;
 			default:
 				addText("contact [-m &lt;linkedin|email|facebook&gt;]", true);
@@ -153,42 +170,13 @@ var contact = function contact(args) {
 				return;
 		}
 	}
-	addText("<a href='" + contact.linkedin.link + "' target='_blank'>Linkedin</a>", true);
-	addText("<a href='" + contact.mail.link + "' target='_blank'>Mail</a>", true);
-	addText("<a href='" + contact.facebook.link + "' target='_blank'>Facebook</a>", true);
+	addText("<a href='" + contactDetails.linkedin.link + "' target='_blank'>Linkedin</a>", true);
+	addText("<a href='" + contactDetails.mail.link + "' target='_blank'>Mail</a>", true);
+	addText("<a href='" + contactDetails.facebook.link + "' target='_blank'>Facebook</a>", true);
 	addText();
 }
 
-function cv() {
-	addText("<a href='curriculum-vitae-joe-griffin.pdf' target='_blank'>Read it, absorb it.</a>", true);
-	addText();
-}
-
-function easymode() {
-	addText("<a href='/easymode'>Get me out of here</a>", true);
-	addText();
-}
-
-function photography() {
-	addText("<a href='/photography' target='_blank'>Pictures</a>", true);
-	addText();
-}
-
-function clear() {
-	terminalTop.text("");
-}
-
-function commandNotFound(command) {
-	addText(command + ": command not found. Type `help' for a list of commands", true)
-}
-
-function info() {
-	addText("Welcome to jgriff.in", true);
-	addText("jgriff.in is host to a small collection of curios created and maintained by its owner.", true);
-	addText();
-}
-
-function about() {
+var about = function(args) {
 	addText("Joe Griffin", true);
 	addText("London", true);
 	addText("Software Development:", true);
@@ -197,66 +185,11 @@ function about() {
 	addText();
 }
 
-function help(args) {
-	if (args == undefined || args.length == 1) {
-		printHelp()
-		return;
-	}
-	else if(args.length > 3) {
-		addText("-bash: help: no help topics match " + "`args[1]'");
-		return;
-	}
-	else {
-		switch(args[1]) {
-			case "about":
-				addText("about", true);
-				addText("Some words about the owner.", true);
-				addText();
-				return;
-			case "contact":
-				addText("contact [-m &lt;linkedin|email|facebook&gt;]", true);
-				addText("Methods of getting hold of me. If a method is specificied, make that form of contact immediately.", true);
-				addText();
-				addText("&nbsp;&nbsp;Options:", true);
-				addText();
-				addText("&nbsp;&nbsp;&nbsp;&nbsp;-m    contact method", true);
-				addText();
-				addText("&nbsp;&nbsp;Arguments:", true);
-				addText();
-				addText("&nbsp;&nbsp;&nbsp;&nbsp;method    the form of contact to make immediately.", true);
-				addText();
-				return;
-			case "cv":
-				addText("Provides a link to my current CV", true);
-				addText();
-				return;
-			case "photography":
-				addText("Provides a link to some pictures what i took", true);
-				addText();
-				return;
-			case "easymode":
-				addText("Provides a link to get you the hell out of here", true);
-				addText();
-				return;
-			default:
-				addText("what...?", true)
-				addText();
-				return;
-		}
-	}
+var help = function(args) {
+	addText("you asked for help", true);
+	addText();
 }
 
-function printHelp() {
-	addText("JS bash emulator", true);
-	addText("These shell commands are defined internally. Type `help' to see this list.", true);
-	addText("Type `help name' to find out more about the function `name'.", true);
-	addText("Use `info' to find out more about jgriff.in in general.", true);
-	addText();
-	addText("about", true);
-	addText("contact [-m &lt;linkedin|mail|facebook&gt;]", true);
-	addText("cv", true);
-	addText("<a href='/easymode'>easymode</a>", true);
-	addText("help", true);
-	addText("photography", true);
-	addText();
+function commandNotFound(command) {
+	addText(command + ": command not found. Type `help' for a list of commands", true)
 }
