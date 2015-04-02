@@ -6,15 +6,36 @@
  */
 
 var terminal, terminalBottom, terminalTop, terminalPrompt, terminalCaret;
-var loggedIn = false;
-var prompt = { plain: "user@jgriff.in:~$ ", html: "user@jgriff.in:~$&nbsp;"}
 
+var loggedIn = false;
+var prompt = { plain: "user@jgriff.in:~$ ", html: "user@jgriff.in:~$&nbsp;" }
 var github_repo = "http://github.com/wackro/homepage-2015";
 var contact = { 
-	facebook: { name: "facebook", link: "http://facebook.com/griffdogg"},
+	facebook: { name: "facebook", link: "http://facebook.com/griffdogg" },
 	mail: { name: "mail", link: "mailto:wackro@gmail.com" },
 	linkedin: { name: "linkedin", link: "https://uk.linkedin.com/pub/joe-griffin/1b/9b2/25a" }
 };
+
+var commands = [
+	{
+		name: "about",
+		action: about,
+		usage: "about",
+		help: "this is the help for about"
+	},
+	{
+		name: "contact",
+		action: contact,
+		usage: "contact [-m [linkedin|mail|facebook]]"
+		help: "this is the help for contact"
+	},
+	{
+		name: "help",
+		action: help,
+		usage: "help [command]"
+		help: "there is no help for help..."
+	}
+];
 
 $(document).ready( function() {
 	init();
@@ -52,14 +73,14 @@ function initText_1() {
 }
 
 function initText_2() {
-        addText("user@jgriff.in's password: ", true);
+    addText("user@jgriff.in's password: ", true);
 	pause("initText_3()", 2);
 }
 
 function initText_3() {
 	addText("Welcome to jgriff.in", true);
 	addText("", true);
-	addText(" * Documentation: " + github_repo + ", true);
+	addText(" * Documentation: <a href='" + github_repo + "' target='_blank'>" + github_repo + "</a>", true);
 	if($.cookie("lastLogin") == undefined) {
 		var date = new Date();
 		$.cookie("lastLogin", date.toString());
@@ -107,50 +128,35 @@ function addText(text, suppressUserString) {
 	terminalBottom.focus();
 }
 
-function pause(f, quanta) {
-	window.setTimeout(f, quanta*1000);
-}
-
-function format(text) {
-	return text;
-}
-
 function interpret(text) {
 	var splitText = text.split(' ')
 	addText(terminalBottom.text());
-	terminalBottom.text("");
-	switch(splitText[0]) {
-		case "help":
-			help(splitText);
-			return;
-		case "about":
-			about();
-			return;
-		case "contact":
-			contact(splitText);
-			return;
-		case "cv":
-			cv();
-			return;
-		case "photography":
-			photography()
-			return;
-		case "easymode":
-			easymode();
-			return;
-		case "info":
-			info();
-			return;
-		case "":
-			addText("");
-			return;
-		case "clear":
-			clear();
-			return;
-		default:
-			commandNotFound(splitText[0]);
-			return;
+	terminalBottom.text("", true);
+	doAction(splitText[0]);
+}
+
+var contact = function contact(args) {
+	if(args.length == 3 && args[1] == "-m") {
+		switch(args[2].toLowerCase()) {
+			case "linkedin":
+				window.open(contact.linkedin.link, "_blank");
+				return;
+			case "mail":
+				window.location.href = contact.mail.link;
+				return;
+			case "facebook":
+				window.open(contact.facebook.link, "_blank")
+				return;
+			default:
+				addText("contact [-m &lt;linkedin|email|facebook&gt;]", true);
+				addText();
+				return;
+		}
 	}
+	addText("<a href='" + contact.linkedin.link + "' target='_blank'>Linkedin</a>", true);
+	addText("<a href='" + contact.mail.link + "' target='_blank'>Mail</a>", true);
+	addText("<a href='" + contact.facebook.link + "' target='_blank'>Facebook</a>", true);
+	addText();
 }
 
 function cv() {
@@ -164,7 +170,7 @@ function easymode() {
 }
 
 function photography() {
-	addText("<a href='/photography' target='_blank'>Take me there</a>", true);
+	addText("<a href='/photography' target='_blank'>Pictures</a>", true);
 	addText();
 }
 
@@ -252,29 +258,5 @@ function printHelp() {
 	addText("<a href='/easymode'>easymode</a>", true);
 	addText("help", true);
 	addText("photography", true);
-	addText();
-}
-
-function contact(args) {
-	if(args.length == 3 && args[1] == "-m") {
-		switch(args[2].toLowerCase()) {
-			case "linkedin":
-				window.open(contact.linkedin.link, "_blank");
-				return;
-			case "mail":
-				window.location.href = contact.mail.link;
-				return;
-			case "facebook":
-				window.open(contact.facebook.link, "_blank")
-				return;
-			default:
-				addText("contact [-m &lt;linkedin|email|facebook&gt;]", true);
-				addText();
-				return;
-		}
-	}
-	addText("<a href='" + contact.linkedin.link + "' target='_blank'>Linkedin</a>", true);
-	addText("<a href='" + contact.mail.link + "' target='_blank'>Mail</a>", true);
-	addText("<a href='" + contact.facebook.link + "' target='_blank'>Facebook</a>", true);
 	addText();
 }
