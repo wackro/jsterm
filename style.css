@@ -44,26 +44,22 @@ div#terminal a:hover {
 	color: #f53;
 }
 @-webkit-keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
+	0% { opacity: 1; }
+	50% { opacity: 0; }
 }
-
 @-moz-keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
+	0% { opacity: 1; }
+	50% { opacity: 0; }
 }
-
 @-ms-keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
+	0% { opacity: 1; }
+	50% { opacity: 0; }
 }
-
 @-o-keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
+	0% { opacity: 1; }
+	50% { opacity: 0; }
 }
-
 @keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
+	0% { opacity: 1; }
+	50% { opacity: 0; }
 }
