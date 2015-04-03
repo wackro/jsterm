@@ -59,7 +59,7 @@ function initText_2() {
 function initText_3() {
 	addText("Welcome to jgriff.in", true);
 	addText("", true);
-	addText(" * Documentation: " + github_repo + ", true);
+	addText(" * Documentation: " + github_repo, true);
 	if($.cookie("lastLogin") == undefined) {
 		var date = new Date();
 		$.cookie("lastLogin", date.toString());
