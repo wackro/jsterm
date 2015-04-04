@@ -64,7 +64,7 @@ function pause(f, quanta) {
 }
 
 function initText_1() {
-	write("Login as: user", true);
+	write("Login as: user");
 	pause("initText_2()", 1);
 }
 
@@ -74,15 +74,13 @@ function initText_2() {
 }
 
 function initText_3() {
-	write("Welcome to jgriff.in", true);
-	write("", true);
-	write(" * Documentation: <a href='" + github_repo + "' target='_blank'>" + github_repo + "</a>", true);
+	write("Welcome to jgriff.in<br/><br/>" +
+			"* Documentation: <a href='" + github_repo + "' target='_blank'>" + github_repo + "</a>");
 	if($.cookie("lastLogin") == undefined) {
 		var date = new Date();
 		$.cookie("lastLogin", date.toString());
 	}
-	write("Last Login: " + $.cookie("lastLogin"), true)
-	write("", false);
+	write("Last Login: " + $.cookie("lastLogin");
 	loggedIn = true;
 	terminalPrompt.show();
 	terminalCaret.show();
