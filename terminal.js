@@ -80,7 +80,7 @@ function initText_3() {
 		var date = new Date();
 		$.cookie("lastLogin", date.toString());
 	}
-	write("Last Login: " + $.cookie("lastLogin");
+	write("Last Login: " + $.cookie("lastLogin"));
 	loggedIn = true;
 	terminalPrompt.show();
 	terminalCaret.show();
