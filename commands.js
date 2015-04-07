@@ -44,16 +44,14 @@ var contact = function(args) {
 		switch(args[1].toLowerCase()) {
 			case "linkedin":
 				window.open(details.linkedin.link, "_blank");
-				return;
 			case "mail":
 				window.location.href = details.mail.link;
-				return;
 			case "facebook":
 				window.open(details.facebook.link, "_blank")
-				return;
 			default:
 				return contact.usage;
 		}
+		return "Opening widow...";
 	}
 	else {
 		return contact.usage;
@@ -72,10 +70,10 @@ var help = function(args) {
 		return output;
 	}
 	else {
-		var command = getCommand(args[1]);
+		var command = getAction(args[1]);
 		if(command != null)
 			return command.help;
-		return commandNotFound(args[1]);
+		return "help: no help topics match " + args [1];
 	}
 }
 

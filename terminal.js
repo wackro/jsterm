@@ -91,20 +91,19 @@ function initText_4() {
 	type("help", 0.2, true);
 }
 
-var currentChar = 0, timer;
-function type(command, speed, hitEnter) {
-	if(currentChar == command.length) {
+var currentChar = 0;
+function type(text, hitEnter) {
+	if(currentChar == text.length) {
 		currentChar = 0;
-		clearInterval(timer);
 		if(hitEnter)
 			var e = jQuery.Event("keydown");
 			e.keyCode = 13;
 			terminalBottom.trigger(e);
 		return;
 	}
-	terminalBottom.text(terminalBottom.text() + command[currentChar]);
+	terminalBottom.text(terminalBottom.text() + text[currentChar]);
 	currentChar++;
-	timer = setInterval(type(command, speed, hitEnter), speed);
+	pause(type(text, hitEnter), speed);
 }
 
 function write(text) {
@@ -117,8 +116,11 @@ function write(text) {
 }
 
 function interpret(text) {
-	var args = text.split(' ')
-	write("<b>" + terminalPrompt.text() + "</b>" + terminalBottom.text() + "<br/>" + run(args) + "<br/>");
+	var args = text.split(' ');
+	if(text == "")
+		write("<b>" + terminalPrompt.text() + "</b>");
+	else
+		write("<b>" + terminalPrompt.text() + "</b>" + terminalBottom.text() + "<br/>" + run(args) + "<br/>");
 	terminalBottom.text("");
 }
 
