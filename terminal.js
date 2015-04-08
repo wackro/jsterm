@@ -92,18 +92,19 @@ function initText_4() {
 }
 
 var currentChar = 0;
-function type(text, hitEnter) {
+function type(text, speed, hitEnter) {
 	if(currentChar == text.length) {
 		currentChar = 0;
-		if(hitEnter)
+		if(hitEnter) {
 			var e = jQuery.Event("keydown");
 			e.keyCode = 13;
 			terminalBottom.trigger(e);
+		}
 		return;
 	}
 	terminalBottom.text(terminalBottom.text() + text[currentChar]);
 	currentChar++;
-	pause(type(text, hitEnter), speed);
+	pause(type(text, speed, hitEnter), speed);
 }
 
 function write(text) {
