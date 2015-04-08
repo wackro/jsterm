@@ -104,7 +104,7 @@ function type(text, speed, hitEnter) {
 	}
 	terminalBottom.text(terminalBottom.text() + text[currentChar]);
 	currentChar++;
-	pause(type(text, speed, hitEnter), speed);
+	pause(function(){type(text, speed, hitEnter)}, speed);
 }
 
 function write(text) {
