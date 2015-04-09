@@ -10,6 +10,8 @@ var terminal, terminalBottom, terminalTop, terminalPrompt, terminalCaret;
 var loggedIn = false;
 var prompt = { plain: "user@jgriff.in:~$ ", html: "user@jgriff.in:~$&nbsp;" }
 var github_repo = "http://github.com/wackro/homepage-2015";
+var currentHistoryitem = 0;
+var commandHistory = [];
 
 $(document).ready( function() {
 	init();
@@ -50,13 +52,35 @@ function getAction(command) {
 
 function registerListeners() {
 	terminalBottom.keydown(function(e) {
-		if(e.keyCode == 13) {
-			interpret(terminalBottom.text());
+		switch(e.keyCode) {
+			case 13:	// enter
+				interpret(terminalBottom.text());
+				break;
+			case 38:	// up
+				historyBack();
+				break;
+			case 40:	// down
+				historyForward();
+				break;
 		}
 	});
 	terminalBottom.focusout(function(e) {
 		terminalBottom.focus();
 	});
+}
+
+function historyBack() {
+	if(currentHistoryitem == commandHistory.length)
+		return;
+	currentHistoryitem++;
+	terminalBottom.text(commandHistory[commandHistory.length - currentHistoryitem]);
+}
+
+function historyForward() {
+	if(terminalBottom.text() == "")
+		return;
+	currentHistoryitem--;
+	terminalBottom.text(commandHistory[commandHistory.length - currentHistoryitem] || "");
 }
 
 function pause(f, quanta) {
@@ -102,8 +126,7 @@ function type(text, speed, hitEnter) {
 		}
 		return;
 	}
-	terminalBottom.text(terminalBottom.text() + text[currentChar]);
-	currentChar++;
+	terminalBottom.text(terminalBottom.text() + text[currentChar++]);
 	pause(function(){type(text, speed, hitEnter)}, speed);
 }
 
@@ -117,12 +140,21 @@ function write(text) {
 }
 
 function interpret(text) {
+	currentHistoryitem = 0;
 	var args = text.split(' ');
-	if(text == "")
+	if(text.trim() == "") {
 		write("<b>" + terminalPrompt.text() + "</b>");
-	else
+	}
+	else {
+		addHistory(text);
 		write("<b>" + terminalPrompt.text() + "</b>" + terminalBottom.text() + "<br/>" + run(args) + "<br/>");
+	}
 	terminalBottom.text("");
+}
+
+function addHistory(text) {
+	if(text.trim() != "")
+		commandHistory.push(text);
 }
 
 function commandNotFound(command) {
