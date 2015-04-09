@@ -73,5 +73,29 @@ var commands = [
 						},
 		usage: "help [command]",
 		help: "Displays information about builtin commands.<br/><br/>If a command is specified, gives detailed help on that command, otherwise the list of help topics is printed."
+	},
+	{
+		name: "cv",
+		action: function(args) {
+							return "<a href='curriculum-vitae-joe-griffin.pdf' target='_blank'>Read it, absorb it.</a>"
+						},
+		usage: "cv",
+		help: "Provides a link to my CV."
+	},
+	{
+		name: "photography",
+		action: function(args) {
+							return "<a href='/photography' target='_blank'>Take me there.</a>"
+						},
+		usage: "photography",
+		help: "Provides a link to my photography portfolio."
+	},
+	{
+		name: "easymode",
+		action: function(args) {
+							return "<a href='/easymode'>Get me out of here.</a>"
+						},
+		usage: "<a href='/easymode'>easymode</a>",
+		help: "Provides a link for you to get the hell out of here."
 	}
 ]
