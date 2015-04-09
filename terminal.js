@@ -41,11 +41,8 @@ function run(args) {
 
 function getAction(command) {	
 	for(var i=0;i<commands.length;i++) {
-		if(commands[i].name == command) {
-			var action = window[command];
-			if(typeof action === "function")
-				return action;
-		}
+		if(commands[i].name == command)
+			return commands[i].action
 	}
 	return null;
 }
