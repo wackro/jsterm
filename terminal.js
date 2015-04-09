@@ -1,6 +1,5 @@
 /**
- * An interactive terminal-inspired web application for the homepage of
- * jgriff.in.
+ * An interactive terminal-inspired web application for the homepage of jgriff.in.
  * 
  * http://github.com/wackro/homepage-2015
  */
