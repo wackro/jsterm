@@ -127,11 +127,11 @@ function type(text, speed, hitEnter) {
 }
 
 function write(text) {
-	terminalTop.scrollTop(terminalTop.height());
 	if(text != undefined) {
 		terminalTop.html(terminalTop.html() + text);
 	}
 	terminalTop.html(terminalTop.html() + "<br/>");
+	terminalTop.scrollTop(terminalTop.prop("scrollHeight"));
 	terminalBottom.focus();
 }
 
