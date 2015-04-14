@@ -65,7 +65,7 @@ var commands = [
 								return output
 							}
 							else {
-								var command = getAction(args[1])
+								var command = getCommand(args[1])
 								if(command != null)
 									return command.help;
 								return "help: no help topics match " + args [1]
@@ -96,6 +96,6 @@ var commands = [
 							return "<a href='/easymode'>Get me out of here.</a>"
 						},
 		usage: "<a href='/easymode'>easymode</a>",
-		help: "Provides a link for you to get the hell out of here."
+		help: "Provides a link to get you the hell out of here."
 	}
 ]

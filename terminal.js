@@ -32,16 +32,16 @@ function init() {
 }
 
 function run(args) {
-	var action = getAction(args[0]);
-	if(action != null)
-		return action(args);
+	var command = getCommand(args[0]);
+	if(command != null)
+		return command.action(args);
 	return(commandNotFound(args[0]));
 }
 
-function getAction(command) {	
+function getCommand(command) {	
 	for(var i=0;i<commands.length;i++) {
 		if(commands[i].name == command)
-			return commands[i].action
+			return commands[i]
 	}
 	return null;
 }
