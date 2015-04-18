@@ -149,7 +149,9 @@ function interpret(text) {
 }
 
 function addHistory(text) {
-	if(text.trim() != "")
+	text = text.trim()
+	if(text != "" && commandHistory.length == 0 || 
+		(commandHistory.length >=1 && commandHistory[commandHistory.length-1] != text))
 		commandHistory.push(text);
 }
 
