@@ -10,7 +10,10 @@
 		<title>jgiff.in</title>
 	</head>
 	<script>
-        registerCommands(x)
+        $(document).ready( function() {
+	        init("div#terminal", prompt={plain:"user@jgriff.in:~$ ",html:"user@jgriff.in:~$&nbsp;"})
+            registerCommands(x) // this is daft.
+        });
 	</script>
 	<body>
 		<div id="terminal"></div>
