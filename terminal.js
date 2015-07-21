@@ -49,7 +49,7 @@ function init(container, prompt) {
 	registerListeners()
 	terminalPrompt.show()
 	terminalCaret.show()
-    terminalBottom.focus()
+	terminalBottom.focus()
 }
 
 function run(args) {
