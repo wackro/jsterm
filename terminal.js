@@ -138,7 +138,8 @@ function registerCommands(commands) {
 	    else
 		    console.log("Couldn't register command " + command)
 	})
-
+    globalCommands.sort(sortCommandsByName)
+    
     function isCommandValid(command) {
 	    if(typeof command.name === "undefined" ||
 		    typeof command.usage === "undefined" ||
@@ -147,6 +148,12 @@ function registerCommands(commands) {
 		    return false
 	    return true
     }
+    
+    function sortCommandsByName(a, b) {
+        return (a.name > b.name) ? 1 : ( a.name < b.name ? -1 : 0)
+    }
 }
+
+
 
 
