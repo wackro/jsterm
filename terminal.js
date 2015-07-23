@@ -57,14 +57,14 @@ function run(args) {
 	if(command != null)
 		return command.action(args)
 	return args[0] + ": command not found. Type `help' for a list of commands"
-    
-    function getCommand(command) {	
-	    for(var i=0;i<globalCommands.length;i++) {
-		    if(globalCommands[i].name == command)
-			    return globalCommands[i]
-	    }
-	    return null
+}
+
+function getCommand(command) {	
+    for(var i=0;i<globalCommands.length;i++) {
+        if(globalCommands[i].name == command)
+	        return globalCommands[i]
     }
+    return null
 }
 
 function registerListeners() {
