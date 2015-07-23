@@ -12,7 +12,7 @@ var globalCommands = [{
 		name: "help",
 		action: function(args) {
 			if(args.length == 1) {
-				var output = "JS terminal, version 0.1<br/>" +
+				var output = "JSTerm - <a href='http://github.com/wackro/jsterm'>http://github.com/wackro/jsterm</a><br/>" +
 							"These shell commands are defined internally.  Type `help' to see this list.<br/>" +
 							"Type `help name' to find out more about the function `name'.<br/><br/>"
 				
