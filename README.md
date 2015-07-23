@@ -1,4 +1,4 @@
-# homepage-2015
-the jgriff.in 2015 homepage
+# jsterm
+a javascript termial emulator
 
-can be seen here: http://jgriff.in/
+see it here: http://jgriff.in
