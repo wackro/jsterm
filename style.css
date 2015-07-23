@@ -5,25 +5,28 @@
 body {
 	font-family: monospace;
 	font-size: 11pt;
-	color: #111;
+    color: #839496;             /* solarised base0 */
+    background-color: #073642;  /* solarized base02 */
+    padding: 4px;
 }
 div#terminal {
-	margin: 0 auto;
+	font-family: monospace;
+	font-size: 11pt;
+    color: #839496;             /* solarised base0 */
+    background-color: #073642;  /* solarized base02 */
+    padding: 4px;
 }
 .terminal {
-	max-width: 600px;
 	outline: none;
 	font-family: monospace;
-	color: #111;
 }
 div#terminal-top {
-	overflow-y: hidden;
-	max-height: 80%;
+	
 }
 span#terminal-prompt {
 	float: left;
 	display: none;
-        font-weight: bold;
+    font-weight: bold;
 }
 span#terminal-bottom {
 	float:left;
@@ -31,18 +34,18 @@ span#terminal-bottom {
 }
 span#terminal-caret {
 	display: none;
-	background-color: #111;
-	-webkit-animation: blink 1s infinite steps(1, start);
-	-moz-animation: blink 1s infinite steps(1, start);
-	-ms-animation: blink 1s infinite steps(1, start);
-	animation: blink 1s infinite steps(1, start);
+	background-color: #839496;
+	-webkit-animation: blink 1.5s infinite steps(1, start);
+	-moz-animation: blink 1.5s infinite steps(1, start);
+	-ms-animation: blink 1.5s infinite steps(1, start);
+	animation: blink 1.5s infinite steps(1, start);
 }
 div#terminal a {
-	color: #f80;
+	color: #268bd2;
 	text-decoration: none;
 }
 div#terminal a:hover {
-	color: #f53;
+	color: #d33682;
 }
 @-webkit-keyframes blink {
 	0% { opacity: 1; }

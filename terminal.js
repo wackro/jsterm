@@ -38,8 +38,8 @@ function init(container, prompt) {
 	terminal = $(container)
 	terminal.addClass("terminal")
 	terminal.append("<div id='terminal-top' class='terminal'></div>")
-    this.prompt = prompt
-	terminal.append("<span id='terminal-prompt'>" + prompt.html + "</span>"
+    this.prompt = { plain: prompt, html: prompt.replace(" ", "&nbsp;") }
+	terminal.append("<span id='terminal-prompt'>" + this.prompt.html + "</span>"
 		+ "<span id='terminal-bottom' class='terminal' spellCheck='false' contentEditable></span>"
 		+ "<span id='terminal-caret'>&nbsp;</span>")
 	terminalPrompt = terminal.find("#terminal-prompt")
