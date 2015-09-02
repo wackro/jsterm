@@ -40,7 +40,7 @@ var x = [
 					default:
 						return contact.usage
 				}
-				return "Opening widow..."
+				return "Opening window..."
 			}
 			else {
 				return contact.usage;
