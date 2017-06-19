@@ -14,37 +14,7 @@ var x = [
 	{
 		name: "contact",
 		action: function(args) {
-			var details = { 
-				facebook: { name: "facebook", link: "http://facebook.com/griffdogg" },
-				mail: { name: "mail", link: "mailto:wackro@gmail.com" },
-				linkedin: { name: "linkedin", link: "https://uk.linkedin.com/pub/joe-griffin/1b/9b2/25a" }
-			}
-			if(args.length == 1) {
-				var output = ""
-				output += "<a href='" + details.linkedin.link + "' target='_blank'>Linkedin</a><br/>" +
-						"<a href='" + details.mail.link + "' target='_blank'>Mail</a><br/>" +
-						"<a href='" + details.facebook.link + "' target='_blank'>Facebook</a>"
-				return output
-			}
-			else if(args.length == 2) {
-				switch(args[1].toLowerCase()) {
-					case "linkedin":
-						window.open(details.linkedin.link, "_blank")
-						break
-					case "mail":
-						window.location.href = details.mail.link
-						break
-					case "facebook":
-						window.open(details.facebook.link, "_blank")
-						break
-					default:
-						return contact.usage
-				}
-				return "Opening window..."
-			}
-			else {
-				return contact.usage;
-			}
+			return "redacted"
 		},
 		usage: "contact [linkedin|mail|facebook]",
 		help: "Displays information about getting hold of the owner of this page.<br/><br/>If a method is specified, carries out that method of contact immediately, otherwise a list of contact details is printed."
